@@ -10,7 +10,17 @@
     name="description"
     content="Хэлж амжаагүй үгсээ энд үлдээгээрэй."
   >
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+  const SUPABASE_URL = 'https://sxaribgfgislxzbrdluv.supabase.co';
+ const SUPABASE_KEY = ' sb_publishable_rF04Bi4wxkZUl-yhmhSRrQ_2aoFJwIS'
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+</script>
   <style>
     * {
       margin: 0;
@@ -709,19 +719,23 @@
           <div class="tag" onclick="toggleTag(this)">
             #хайр
           </div>
-
+          <div class="tag" onclick="toggleTag(this)">
+            #ex
           <div class="tag" onclick="toggleTag(this)">
             #санасан
           </div>
-
+           <div class="tag" onclick="toggleTag(this)">
+             #crush
           <div class="tag" onclick="toggleTag(this)">
             #ээждээ
           </div>
-
+          <div class="tag" onclick="toggleTag(this)">
+            #haruusal
           <div class="tag" onclick="toggleTag(this)">
             #аавдаа
           </div>
-
+           <div class="tag" onclick="toggleTag(this)">
+             #sanaadbn
           <div class="tag" onclick="toggleTag(this)">
             #баярлалаа
           </div>
@@ -926,30 +940,52 @@
     }
 
 
-    function sendLetter() {
+   async function sendLetter() {
+  const text = message.value.trim();
 
-      const text =
-        message.value.trim();
+  if (text === "") {
+    alert("Захидлаа эхлээд бичээрэй 🖤");
+    return;
+  }
 
-      if (text === "") {
+  const authorName = author.value.trim() || "Нууц хүн";
 
-        alert(
-          "Захидлаа эхлээд бичээрэй 🖤"
-        );
+  const activeBg = document.querySelector(".bg-choice.active");
+  const background =
+    activeBg
+      ? [...activeBg.classList].find(cls => /^bg[1-4]$/.test(cls)) || "bg1"
+      : "bg1";
 
-        return;
+  const selectedTags = [...document.querySelectorAll(".tag.active")]
+    .map(tag => tag.textContent.trim());
 
-      }
+  const hashtags = selectedTags.join(" ");
 
+  const { error } = await supabaseClient
+    .from("letters")
+    .insert({
+      recipient: recipient.value,
+      letter: text,
+      background: background,
+      author: authorName,
+      hashtags: hashtags
+    });
 
-      alert(
-        "Таны захидлыг хүлээн авлаа. 🖤\n\n" +
-        "Одоогоор энэ нь demo хувилбар учраас " +
-        "database-д хадгалагдахгүй."
-      );
+  if (error) {
+    console.error(error);
+    alert("Захидал илгээхэд алдаа гарлаа. Дахин оролдоно уу. 🖤");
+    return;
+  }
 
-    }
+  alert("Таны захидлыг амжилттай хүлээн авлаа. 🖤");
 
+  message.value = "";
+  author.value = "";
+
+  previewMessage.textContent = "Таны захидал энд харагдана...";
+  previewAuthor.textContent = "— Нууц хүн";
+}
+     
   </script>
 
 </body>
