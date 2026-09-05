@@ -964,18 +964,21 @@
       letter: text,
       background: background,
       author: authorName,
-      hashtags: hashtags,
-      created_at: new Date().toISOString()
-    });
+      
 
+  hashtag: hashtags,
+hashtags: hashtags,
+created_at: new Date().toISOString()
+});
+ 
   
-if (error) {
+  if (error) {
   console.error(error);
   alert("Алдаа: " + error.message + "\nCode: " + error.code);
   return;
-}
-  
-  message.value = "";
+  }
+     
+message.value = "";
   author.value = "";
 
   previewMessage.textContent = "Таны захидал энд харагдана...";
