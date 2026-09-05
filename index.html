@@ -967,14 +967,13 @@
       hashtags: hashtags
     });
 
-  if (error) {
-    console.error(error);
-    alert("Захидал илгээхэд алдаа гарлаа. Дахин оролдоно уу. 🖤");
-    return;
-  }
-
+  
+if (error) {
+  console.error(error);
   alert("Алдаа: " + error.message + "\nCode: " + error.code);
-
+  return;
+}
+  
   message.value = "";
   author.value = "";
 
