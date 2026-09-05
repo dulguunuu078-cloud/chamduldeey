@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>chamduldeey — Хэлж амжаагүй үгс</title>
+
+  <meta
+    name="description"
+    content="Хэлж амжаагүй үгсээ энд үлдээгээрэй."
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #08070d;
+      --card: rgba(25, 20, 38, 0.72);
+      --purple: #8b5cf6;
+      --purple-light: #c084fc;
+      --pink: #ec4899;
+      --text: #ffffff;
+      --muted: #a9a3b8;
+      --border: rgba(255,255,255,0.1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(124,58,237,0.20), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(236,72,153,0.13), transparent 30%),
+        linear-gradient(135deg, #050509, #0c0814 50%, #09070e);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* BACKGROUND LIGHT */
+
+    .glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: #7c3aed;
+      filter: blur(150px);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: -1;
+      animation: moveGlow 10s infinite alternate ease-in-out;
+    }
+
+    .glow.one {
+      top: -150px;
+      left: -100px;
+    }
+
+    .glow.two {
+      right: -150px;
+      bottom: -100px;
+      background: #ec4899;
+      animation-delay: 2s;
+    }
+
+    @keyframes moveGlow {
+      from {
+        transform: translate(0, 0);
+      }
+
+      to {
+        transform: translate(80px, 50px);
+      }
+    }
+
+    /* NAVBAR */
+
+    nav {
+      width: 100%;
+      padding: 24px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--purple-light);
+    }
+
+    .nav-link {
+      color: #aaa4b7;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      padding: 140px 20px 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .small-title {
+      display: inline-block;
+      padding: 8px 15px;
+      border: 1px solid rgba(192,132,252,0.25);
+      background: rgba(139,92,246,0.08);
+      border-radius: 50px;
+      color: #c4b5fd;
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(55px, 11vw, 125px);
+      line-height: 0.95;
+      letter-spacing: -5px;
+      font-weight: 800;
+      background: linear-gradient(
+        100deg,
+        #ffffff,
+        #c4b5fd,
+        #f0abfc,
+        #ffffff
+      );
+      background-size: 250%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 5s infinite alternate;
+    }
+
+    @keyframes gradientMove {
+      from {
+        background-position: 0%;
+      }
+
+      to {
+        background-position: 100%;
+      }
+    }
+
+    .hero-text {
+      max-width: 520px;
+      margin: 30px auto;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .main-button {
+      border: none;
+      cursor: pointer;
+      padding: 16px 30px;
+      border-radius: 14px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #a855f7,
+        #db2777
+      );
+      box-shadow:
+        0 10px 35px rgba(124,58,237,0.28);
+      transition: 0.3s;
+    }
+
+    .main-button:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 15px 45px rgba(168,85,247,0.4);
+    }
+
+    /* LETTER SECTION */
+
+    .section {
+      padding: 100px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+    }
+
+    .letter-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .form-card,
+    .preview-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 28px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+    }
+
+    .form-card h3 {
+      margin-bottom: 25px;
+      font-size: 20px;
+    }
+
+    label {
+      display: block;
+      color: #c5bfd2;
+      font-size: 13px;
+      margin-bottom: 8px;
+      margin-top: 18px;
+    }
+
+    select,
+    textarea,
+    input {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: white;
+      border-radius: 12px;
+      padding: 13px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    select:focus,
+    textarea:focus,
+    input:focus {
+      border-color: rgba(168,85,247,0.7);
+    }
+
+    select option {
+      color: black;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .backgrounds {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .bg-choice {
+      height: 50px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .bg-choice:hover,
+    .bg-choice.active {
+      border-color: white;
+      transform: scale(1.04);
+    }
+
+    .bg1 {
+      background: linear-gradient(135deg,#111827,#7c3aed);
+    }
+
+    .bg2 {
+      background: linear-gradient(135deg,#312e81,#db2777);
+    }
+
+    .bg3 {
+      background: linear-gradient(135deg,#020617,#2563eb);
+    }
+
+    .bg4 {
+      background: linear-gradient(135deg,#18181b,#be185d);
+    }
+
+    .hashtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 8px 11px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #aaa4b7;
+      cursor: pointer;
+      font-size: 12px;
+      transition: 0.2s;
+    }
+
+    .tag.active {
+      background: rgba(139,92,246,0.25);
+      border-color: #8b5cf6;
+      color: white;
+    }
+
+    .send-button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: white;
+      color: #100b17;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .send-button:hover {
+      background: #e9d5ff;
+      transform: translateY(-2px);
+    }
+
+    /* PREVIEW */
+
+    .preview-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .preview-label {
+      color: #aaa4b7;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    .letter-preview {
+      width: min(100%, 390px);
+      aspect-ratio: 4 / 5;
+      border-radius: 20px;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg,#111827,#7c3aed);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .preview-logo {
+      position: absolute;
+      top: 22px;
+      left: 25px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .preview-recipient {
+      font-size: 12px;
+      opacity: 0.65;
+      margin-bottom: 20px;
+    }
+
+    .preview-message {
+      font-size: 20px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .preview-author {
+      margin-top: 25px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .preview-tags {
+      position: absolute;
+      bottom: 22px;
+      left: 25px;
+      right: 25px;
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    /* TODAY LETTER */
+
+    .today {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .today-card {
+      padding: 50px 40px;
+      border-radius: 25px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(124,58,237,0.2),
+          rgba(236,72,153,0.08)
+        );
+      border: 1px solid rgba(192,132,252,0.15);
+      text-align: center;
+    }
+
+    .today-card p {
+      color: #ded9e6;
+      font-size: 19px;
+      line-height: 1.8;
+    }
+
+    .today-card span {
+      display: block;
+      margin-top: 25px;
+      color: #9e96ac;
+      font-size: 13px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: #706a7c;
+      font-size: 12px;
+    }
+
+    footer strong {
+      color: #b794f6;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 750px) {
+
+      nav {
+        padding: 20px;
+      }
+
+      .nav-link {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 130px;
+      }
+
+      h1 {
+        letter-spacing: -3px;
+      }
+
+      .hero-text {
+        font-size: 15px;
+      }
+
+      .section {
+        padding: 70px 15px;
+      }
+
+      .section-title h2 {
+        font-size: 30px;
+      }
+
+      .letter-box {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card,
+      .preview-card {
+        padding: 20px;
+        border-radius: 20px;
+      }
+
+      .letter-preview {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <!-- NAVIGATION -->
+
+  <nav>
+    <div class="logo">chamduldeey<span>.</span></div>
+
+    <a class="nav-link" href="#write">
+      Захидал бичих
+    </a>
+  </nav>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="small-title">
+        ✦ хэлж амжаагүй үгсийн орон зай
+      </div>
+
+      <h1>
+        chamduldeey
+      </h1>
+
+      <p class="hero-text">
+        Зарим үгийг хэлэхэд хэтэрхий оройтсон байдаг.
+        Заримыг нь хэлэх зориг хүрдэггүй.
+        Харин энд тэдгээр үгээ үлдээж болно.
+      </p>
+
+      <button
+        class="main-button"
+        onclick="document.getElementById('write').scrollIntoView()"
+      >
+        ✍ Захидал бичих
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- TODAY'S LETTER -->
+
+  <section class="section">
+
+    <div class="section-title">
+
+      <h2>Өнөөдрийн захидал</h2>
+
+      <p>
+        Хэн нэгний сэтгэлээс үлдсэн хэдэн мөр.
+      </p>
+
+    </div>
+
+    <div class="today">
+
+      <div class="today-card">
+
+        <p>
+          “Чамд хэлж амжаагүй маш олон зүйл
+          одоо хүртэл сэтгэлд минь байдаг.
+          Магадгүй чи хэзээ ч мэдэхгүй байх.
+          Гэхдээ би чамайг үргэлж сайн сайхныг
+          хүсэж явдаг.”
+        </p>
+
+        <span>
+          — Нууц хүн
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- WRITE LETTER -->
+
+  <section class="section" id="write">
+
+    <div class="section-title">
+
+      <h2>Захидлаа үлдээгээрэй</h2>
+
+      <p>
+        Хэлж амжаагүй үгээ өөрийнхөөрөө бич.
+      </p>
+
+    </div>
+
+
+    <div class="letter-box">
+
+      <!-- FORM -->
+
+      <div class="form-card">
+
+        <h3>💌 Захидал бичих</h3>
+
+
+        <label>
+          Хэнд зориулж бичих вэ?
+        </label>
+
+        <select id="recipient">
+
+          <option>Нууц хүн</option>
+          <option>Ээждээ</option>
+          <option>Аавдаа</option>
+          <option>Хайртдаа</option>
+          <option>Найздаа</option>
+          <option>Өөртөө</option>
+          <option>Ирээдүйн өөртөө</option>
+          <option>Хэзээ ч уулзахгүй хүнд</option>
+
+        </select>
+
+
+        <label>
+          Захидал
+        </label>
+
+        <textarea
+          id="message"
+          maxlength="500"
+          placeholder="Энд хэлж амжаагүй үгээ бичээрэй..."
+        ></textarea>
+
+
+        <label>
+          Таны нэр
+        </label>
+
+        <input
+          id="author"
+          type="text"
+          placeholder="Нууц хүн"
+          maxlength="30"
+        >
+
+
+        <label>
+          Background
+        </label>
+
+        <div class="backgrounds">
+
+          <div
+            class="bg-choice bg1 active"
+            onclick="changeBackground('bg1', this)"
+          ></div>
+
+          <div
+            class="bg-choice bg2"
+            onclick="changeBackground('bg2', this)"
+          ></div>
+
+          <div
+            class="bg-choice bg3"
+            onclick="changeBackground('bg3', this)"
+          ></div>
+
+          <div
+            class="bg-choice bg4"
+            onclick="changeBackground('bg4', this)"
+          ></div>
+
+        </div>
+
+
+        <label>
+          Hashtag
+        </label>
+
+        <div class="hashtags">
+
+          <div class="tag" onclick="toggleTag(this)">
+            #хайр
+          </div>
+
+          <div class="tag" onclick="toggleTag(this)">
+            #санасан
+          </div>
+
+          <div class="tag" onclick="toggleTag(this)">
+            #ээждээ
+          </div>
+
+          <div class="tag" onclick="toggleTag(this)">
+            #аавдаа
+          </div>
+
+          <div class="tag" onclick="toggleTag(this)">
+            #баярлалаа
+          </div>
+
+          <div class="tag" onclick="toggleTag(this)">
+            #уучлаарай
+          </div>
+
+          <div class="tag" onclick="toggleTag(this)">
+            #нууц
+          </div>
+
+        </div>
+
+
+        <button
+          class="send-button"
+          onclick="sendLetter()"
+        >
+          Захидлаа үлдээх →
+        </button>
+
+      </div>
+
+
+      <!-- PREVIEW -->
+
+      <div class="preview-card">
+
+        <div class="preview-label">
+          INSTAGRAM PREVIEW
+        </div>
+
+        <div
+          class="letter-preview bg1"
+          id="letterPreview"
+        >
+
+          <div class="preview-logo">
+            chamduldeey
+          </div>
+
+          <div
+            class="preview-recipient"
+            id="previewRecipient"
+          >
+            Нууц хүн
+          </div>
+
+          <div
+            class="preview-message"
+            id="previewMessage"
+          >
+            Таны захидал энд харагдана...
+          </div>
+
+          <div
+            class="preview-author"
+            id="previewAuthor"
+          >
+            — Нууц хүн
+          </div>
+
+          <div
+            class="preview-tags"
+            id="previewTags"
+          >
+            #chamduldeey
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    Made with 🖤 for words left unsaid.
+
+    <br><br>
+
+    <strong>chamduldeey</strong>
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    const message = document.getElementById("message");
+    const author = document.getElementById("author");
+    const recipient = document.getElementById("recipient");
+
+    const previewMessage =
+      document.getElementById("previewMessage");
+
+    const previewAuthor =
+      document.getElementById("previewAuthor");
+
+    const previewRecipient =
+      document.getElementById("previewRecipient");
+
+    const previewTags =
+      document.getElementById("previewTags");
+
+    const letterPreview =
+      document.getElementById("letterPreview");
+
+
+    message.addEventListener("input", function () {
+
+      if (this.value.trim() === "") {
+
+        previewMessage.textContent =
+          "Таны захидал энд харагдана...";
+
+      } else {
+
+        previewMessage.textContent =
+          this.value;
+
+      }
+
+    });
+
+
+    author.addEventListener("input", function () {
+
+      if (this.value.trim() === "") {
+
+        previewAuthor.textContent =
+          "— Нууц хүн";
+
+      } else {
+
+        previewAuthor.textContent =
+          "— " + this.value;
+
+      }
+
+    });
+
+
+    recipient.addEventListener("change", function () {
+
+      previewRecipient.textContent =
+        this.value;
+
+    });
+
+
+    function changeBackground(bg, element) {
+
+      letterPreview.classList.remove(
+        "bg1",
+        "bg2",
+        "bg3",
+        "bg4"
+      );
+
+      letterPreview.classList.add(bg);
+
+
+      document
+        .querySelectorAll(".bg-choice")
+        .forEach(function(item) {
+
+          item.classList.remove("active");
+
+        });
+
+
+      element.classList.add("active");
+
+    }
+
+
+    function toggleTag(element) {
+
+      element.classList.toggle("active");
+
+      const selectedTags =
+        document.querySelectorAll(".tag.active");
+
+      let text = "#chamduldeey";
+
+      selectedTags.forEach(function(tag) {
+
+        text += " " + tag.textContent.trim();
+
+      });
+
+      previewTags.textContent = text;
+
+    }
+
+
+    function sendLetter() {
+
+      const text =
+        message.value.trim();
+
+      if (text === "") {
+
+        alert(
+          "Захидлаа эхлээд бичээрэй 🖤"
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Таны захидлыг хүлээн авлаа. 🖤\n\n" +
+        "Одоогоор энэ нь demo хувилбар учраас " +
+        "database-д хадгалагдахгүй."
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
